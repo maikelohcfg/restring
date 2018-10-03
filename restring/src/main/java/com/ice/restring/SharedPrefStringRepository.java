@@ -77,10 +77,10 @@ class SharedPrefStringRepository implements StringRepository {
 
     private Map<String, String> deserializeKeyValues(String content) {
         Map<String, String> keyValues = new LinkedHashMap<>();
-        String[] items = content.split("(,{1})(?!\1)");
+        String[] items = content.split("\{,\}");
         for (String item : items) {
             String[] itemKeyValue = item.split("=");
-            keyValues.put(itemKeyValue[0].replaceAll(",,", ","), itemKeyValue[1].replaceAll(",,", ","));
+            keyValues.put(itemKeyValue[0], itemKeyValue[1]);
         }
         return keyValues;
     }
@@ -88,12 +88,12 @@ class SharedPrefStringRepository implements StringRepository {
     private String serializeKeyValues(Map<String, String> keyValues) {
         StringBuilder content = new StringBuilder();
         for (Map.Entry<String, String> item : keyValues.entrySet()) {
-            content.append(item.getKey().replaceAll(",", ",,"))
+            content.append(item.getKey())
                     .append("=")
-                    .append(item.getValue().replaceAll(",", ",,"))
-                    .append(",");
+                    .append(item.getValue())
+                    .append("{,}");
         }
-        content.deleteCharAt(content.length() - 1);
+        content.deleteCharAt(content.length() - 3);
         return content.toString();
     }
 }
