@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 /**
  * A StringRepository which saves/loads the strings in Shared Preferences.
