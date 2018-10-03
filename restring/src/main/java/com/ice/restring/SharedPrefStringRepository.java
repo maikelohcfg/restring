@@ -77,7 +77,7 @@ class SharedPrefStringRepository implements StringRepository {
 
     private Map<String, String> deserializeKeyValues(String content) {
         Map<String, String> keyValues = new LinkedHashMap<>();
-        String[] items = content.split("\{,\}");
+        String[] items = content.split(Pattern.quote("{") +","+Pattern.quote("}"));
         for (String item : items) {
             String[] itemKeyValue = item.split("=");
             keyValues.put(itemKeyValue[0], itemKeyValue[1]);
